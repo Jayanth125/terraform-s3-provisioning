@@ -31,7 +31,7 @@ resource "aws_ecs_task_definition" "app" {
   cpu    = "256"
   memory = "512"
 
-  execution_role_arn = aws_iam_role.ecs_task_execution.arn
+  execution_role_arn = data.aws_iam_role.ecs_task_execution.arn
 
   container_definitions = jsonencode([
     {
@@ -40,18 +40,18 @@ resource "aws_ecs_task_definition" "app" {
       essential = true
 
       portMappings = [
-        {
-          containerPort = var.container_port
-          hostPort      = var.container_port
-          protocol      = "tcp"
-        }
-      ]
+  {
+    containerPort = var.container_port
+    hostPort      = var.container_port
+    protocol      = "tcp"
+  }
+]
 
       logConfiguration = {
         logDriver = "awslogs"
 
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.ecs.name
+          awslogs-group         = data.aws_cloudwatch_log_group.ecs.name
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = "ecs"
         }
@@ -75,13 +75,13 @@ resource "aws_ecs_service" "app" {
 
   network_configuration {
     subnets = [
-      aws_subnet.public_1.id,
-      aws_subnet.public_2.id
-    ]
+  data.aws_subnet.public_1.id,
+  data.aws_subnet.public_2.id
+   ]
 
     security_groups = [
-      aws_security_group.ecs.id
-    ]
+  data.aws_security_group.ecs.id
+]
 
     assign_public_ip = true
   }
