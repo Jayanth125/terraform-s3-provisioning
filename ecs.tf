@@ -86,10 +86,6 @@ resource "aws_ecs_service" "app" {
     assign_public_ip = true
   }
 
-  depends_on = [
-    aws_iam_role_policy_attachment.ecs_task_execution
-  ]
-
   tags = {
     Environment = var.environment
     ManagedBy   = "Terraform"
