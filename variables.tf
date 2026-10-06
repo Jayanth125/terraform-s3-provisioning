@@ -20,3 +20,21 @@ variable "force_destroy" {
   type        = bool
   default     = false
 }
+
+variable "project_name" {
+  description = "Project name"
+  type        = string
+  default     = "jayanth-devops"
+}
+
+variable "container_port" {
+  description = "Container port"
+  type        = number
+  default     = 80
+}
+
+variable "desired_count" {
+  description = "Number of ECS tasks"
+  type        = number
+  default     = 1
+}
