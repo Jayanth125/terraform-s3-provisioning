@@ -53,11 +53,9 @@ jobs:
 
       - name: Import Existing Resources
         run: |
-          terraform import aws_s3_bucket.project_bucket jayanth-devops-s3-2026-84729 || true
-          terraform import aws_ecr_repository.app jayanth-devops-app || true
-          terraform import aws_cloudwatch_log_group.ecs /ecs/jayanth-devops || true
-          terraform import aws_iam_role.ecs_task_execution jayanth-devops-ecs-execution-role || true
-          terraform import aws_vpc.main vpc-0425909ee6d1b525e || true
+         terraform import aws_s3_bucket.project_bucket jayanth-devops-s3-2026-84729 || true
+         terraform import aws_ecr_repository.app jayanth-devops-app || true
+         terraform import aws_cloudwatch_log_group.ecs /ecs/jayanth-devops || true
 
       # 7. Terraform Plan
       - name: Terraform Plan
