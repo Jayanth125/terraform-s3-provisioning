@@ -1,0 +1,60 @@
+name: Terraform S3 Provisioning
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: Terraform S3
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_aws_region: ap-south-1
+      TF_VAR_bucket_name: jayanth-devops-s3-2026-84729
+      TF_VAR_environment: dev
+      TF_VAR_force_destroy: false
+
+    steps:
+
+      # 1. Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Configure AWS
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.TF_VAR_aws_region }}
+
+      # 3. Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 4. Check Terraform formatting
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      # 5. Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # 6. Validate Terraform
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 7. Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # 8. Terraform Apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
