@@ -3,6 +3,26 @@ import {
   id = "jayanth-devops-s3-2026-84729"
 }
 
+import {
+  to = aws_ecr_repository.app
+  id = "jayanth-devops-app"
+}
+
+import {
+  to = aws_cloudwatch_log_group.ecs
+  id = "/ecs/jayanth-devops"
+}
+
+import {
+  to = aws_iam_role.ecs_task_execution
+  id = "jayanth-devops-ecs-execution-role"
+}
+
+import {
+  to = aws_vpc.main
+  id = "vpc-0425909ee6d1b525e"
+}
+
 provider "aws" {
   region = var.aws_region
 }
