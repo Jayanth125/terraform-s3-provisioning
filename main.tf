@@ -1,3 +1,8 @@
+import {
+  to = aws_s3_bucket.project_bucket
+  id = "jayanth-devops-terraform-s3-2026"
+}
+
 provider "aws" {
   region = var.aws_region
 }
