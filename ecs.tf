@@ -40,12 +40,12 @@ resource "aws_ecs_task_definition" "app" {
       essential = true
 
       portMappings = [
-  {
-    containerPort = var.container_port
-    hostPort      = var.container_port
-    protocol      = "tcp"
-  }
-]
+        {
+          containerPort = var.container_port
+          hostPort      = var.container_port
+          protocol      = "tcp"
+        }
+      ]
 
       logConfiguration = {
         logDriver = "awslogs"
@@ -69,19 +69,18 @@ resource "aws_ecs_service" "app" {
   name            = "${var.project_name}-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
-
-  desired_count = var.desired_count
-  launch_type   = "FARGATE"
+  desired_count   = var.desired_count
+  launch_type     = "FARGATE"
 
   network_configuration {
     subnets = [
-  data.aws_subnet.public_1.id,
-  data.aws_subnet.public_2.id
-   ]
+      data.aws_subnet.public_1.id,
+      data.aws_subnet.public_2.id
+    ]
 
     security_groups = [
-  data.aws_security_group.ecs.id
-]
+      data.aws_security_group.ecs.id
+    ]
 
     assign_public_ip = true
   }
