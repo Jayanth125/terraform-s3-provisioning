@@ -1,6 +1,6 @@
 import {
   to = aws_s3_bucket.project_bucket
-  id = "jayanth-devops-terraform-s3-2026"
+  id = "jayanth-devops-s3-2026-84729"
 }
 
 provider "aws" {
