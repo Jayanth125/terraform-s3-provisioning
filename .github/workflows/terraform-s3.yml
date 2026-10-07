@@ -143,3 +143,26 @@ jobs:
         run: |
           kubectl get pods -o wide
           kubectl get service nexvion-service
+
+      # 21. Get Kubernetes pod logs
+      - name: Get Nexvion Kubernetes Logs
+        if: always()
+        run: |
+          echo "=========================================="
+          echo "NEXVION PODS"
+          echo "=========================================="
+          kubectl get pods -o wide
+
+          echo "=========================================="
+          echo "NEXVION SERVICE"
+          echo "=========================================="
+          kubectl get service nexvion-service
+
+          echo "=========================================="
+          echo "NEXVION KUBERNETES LOGS"
+          echo "=========================================="
+          kubectl logs \
+            -l app=nexvion \
+            --all-containers=true \
+            --tail=100 \
+            --prefix=true || true
