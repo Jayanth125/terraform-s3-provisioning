@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "app" {
   container_definitions = jsonencode([
     {
       name      = "app"
-      image     = "nginx:latest"
+      image     = var.container_image
       essential = true
 
       portMappings = [
@@ -74,12 +74,12 @@ resource "aws_ecs_service" "app" {
 
   network_configuration {
     subnets = [
-      data.aws_subnet.public_1.id,
-      data.aws_subnet.public_2.id
+      aws_subnet.public_1.id,
+      aws_subnet.public_2.id
     ]
 
     security_groups = [
-      data.aws_security_group.ecs.id
+      aws_security_group.ecs.id
     ]
 
     assign_public_ip = true
