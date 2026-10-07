@@ -33,6 +33,11 @@ variable "container_port" {
   default     = 80
 }
 
+variable "desired_count" {
+  description = "Number of ECS tasks"
+  type        = number
+  default     = 1
+}
 variable "container_image" {
   description = "Docker image used by ECS"
   type        = string
