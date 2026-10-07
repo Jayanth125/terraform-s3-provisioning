@@ -21,6 +21,7 @@ resource "aws_subnet" "public_1" {
 
   "kubernetes.io/role/elb" = "1"
 }
+}
 
 resource "aws_subnet" "public_2" {
   vpc_id                  = aws_vpc.main.id
@@ -32,6 +33,7 @@ resource "aws_subnet" "public_2" {
   Name = "${var.project_name}-public-2"
 
   "kubernetes.io/role/elb" = "1"
+}
 }
 
 resource "aws_internet_gateway" "main" {
