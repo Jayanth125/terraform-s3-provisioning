@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexvion
+  namespace: default
+  labels:
+    app: nexvion
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: nexvion
+
+  template:
+    metadata:
+      labels:
+        app: nexvion
+
+    spec:
+      containers:
+        - name: nexvion
+          image: 746931977188.dkr.ecr.ap-south-1.amazonaws.com/jayanth-devops-app:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
