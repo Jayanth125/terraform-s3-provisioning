@@ -102,3 +102,17 @@ jobs:
             --service jayanth-devops-service \
             --force-new-deployment \
             --region ap-south-1
+
+      # 14. Verify ECS deployment
+      - name: Verify ECS Service
+        run: |
+          aws ecs wait services-stable \
+            --cluster jayanth-devops-cluster \
+            --services jayanth-devops-service \
+            --region ap-south-1
+
+          aws ecs describe-services \
+            --cluster jayanth-devops-cluster \
+            --services jayanth-devops-service \
+            --region ap-south-1 \
+            --query 'services[0].{Status:status,Running:runningCount,Desired:desiredCount}'
