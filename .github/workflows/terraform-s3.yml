@@ -65,3 +65,40 @@ jobs:
       # 8. Terraform Apply
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+
+      # 9. Login to GitHub Container Registry
+      - name: Login to GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io \
+            -u "${{ secrets.GHCR_USERNAME }}" \
+            --password-stdin
+
+      # 10. Pull Nexvion image from GHCR
+      - name: Pull Nexvion Image
+        run: |
+          docker pull ghcr.io/jayanth125/nexvion:latest
+
+      # 11. Login to Amazon ECR
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 12. Tag and Push Image to ECR
+      - name: Push Nexvion Image to ECR
+        env:
+          ECR_REGISTRY: 746931977188.dkr.ecr.ap-south-1.amazonaws.com
+          ECR_REPOSITORY: jayanth-devops-app
+        run: |
+          docker tag ghcr.io/jayanth125/nexvion:latest \
+            $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+          docker push \
+            $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      # 13. Force ECS Deployment
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster jayanth-devops-cluster \
+            --service jayanth-devops-service \
+            --force-new-deployment \
+            --region ap-south-1
