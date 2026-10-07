@@ -1,5 +1,5 @@
 variable "aws_region" {
-  description = "AWS region where the S3 bucket will be created"
+  description = "AWS region"
   type        = string
   default     = "ap-south-1"
 }
@@ -33,8 +33,7 @@ variable "container_port" {
   default     = 80
 }
 
-variable "desired_count" {
-  description = "Number of ECS tasks"
-  type        = number
-  default     = 1
+variable "container_image" {
+  description = "Docker image used by ECS"
+  type        = string
 }
