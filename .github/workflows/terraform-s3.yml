@@ -20,6 +20,7 @@ jobs:
       TF_VAR_bucket_name: jayanth-devops-s3-2026-84729
       TF_VAR_environment: dev
       TF_VAR_force_destroy: false
+      TF_VAR_container_image: 746931977188.dkr.ecr.ap-south-1.amazonaws.com/jayanth-devops-app:latest
 
     steps:
 
