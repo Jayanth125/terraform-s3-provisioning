@@ -42,3 +42,18 @@ output "ecs_security_group_id" {
   description = "ECS security group ID"
   value       = aws_security_group.ecs.id
 }
+
+output "eks_cluster_name" {
+  description = "EKS cluster name"
+  value       = aws_eks_cluster.main.name
+}
+
+output "eks_cluster_endpoint" {
+  description = "EKS cluster endpoint"
+  value       = aws_eks_cluster.main.endpoint
+}
+
+output "eks_node_group_name" {
+  description = "EKS node group name"
+  value       = aws_eks_node_group.main.node_group_name
+}
