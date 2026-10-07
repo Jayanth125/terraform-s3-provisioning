@@ -35,10 +35,10 @@ output "ecs_service_name" {
 
 output "vpc_id" {
   description = "VPC ID"
-  value       = data.aws_vpc.main.id
+  value       = aws_vpc.main.id
 }
 
 output "ecs_security_group_id" {
   description = "ECS security group ID"
-  value       = data.aws_security_group.ecs.id
+  value       = aws_security_group.ecs.id
 }
